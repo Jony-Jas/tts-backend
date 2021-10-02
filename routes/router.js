@@ -5,6 +5,7 @@ const fs = require("fs");
 
 router.post("/convert", (req, res) => {
   const { id, data, sample } = req.body;
+  console.log(req.body);
   var obj = { id, data, sample };
   var json = JSON.stringify(obj);
   console.log(json);
@@ -37,6 +38,15 @@ router.post("/convert", (req, res) => {
     );
     res.send(`${id}`);
   });
+});
+
+const fileSystem = require("fs");
+const path = require("path");
+
+router.get("/audio/:id", (req, res) => {
+  const { id } = req.params;
+  var filePath = path.join(__dirname, `../../cloned_audios/${id}.wav`);
+  res.download(filePath);
 });
 
 module.exports = router;
